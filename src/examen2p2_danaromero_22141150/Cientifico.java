@@ -13,10 +13,11 @@ import java.util.ArrayList;
  * @author Dana Romero
  */
 public class Cientifico implements Serializable{
+    private static final long serialVersionUID = 6529685098267757690L;
     
     //Atributos
     protected String nombreCientifico;
-    static ArrayList <Planeta> listaPlanetas;
+    ArrayList <Planeta> listaPlanetas;
 
     //Constructor
 
@@ -35,12 +36,12 @@ public class Cientifico implements Serializable{
         this.nombreCientifico = nombreCientifico;
     }
 
-    public static ArrayList<Planeta> getListaPlanetas() {
+    public  ArrayList<Planeta> getListaPlanetas() {
         return listaPlanetas;
     }
 
-    public static void setListaPlanetas(ArrayList<Planeta> listaPlanetas) {
-        Cientifico.listaPlanetas = listaPlanetas;
+    public  void setListaPlanetas(ArrayList<Planeta> listaPlanetas) {
+        this.listaPlanetas = listaPlanetas;
     }
     
     

@@ -6,14 +6,10 @@
 package examen2p2_danaromero_22141150;
 
 import static java.awt.MouseInfo.getPointerInfo;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +29,7 @@ public class Main extends javax.swing.JFrame {
     DefaultTreeModel model;
     ArrayList <Planeta> planetasDefault;
     ArrayList <Cientifico> cientificos;
-    
+    //private static final long serialVersionUID = 1L;
     
     public Main() {
 
@@ -52,6 +48,7 @@ public class Main extends javax.swing.JFrame {
         llenarComboBox();
         model = (DefaultTreeModel)tree_planetas.getModel();
         raiz = new DefaultMutableTreeNode("Planetas"); 
+        
     }
 
    
@@ -107,6 +104,12 @@ public class Main extends javax.swing.JFrame {
         tf_planeta1.setEditable(false);
 
         tf_planeta2.setEditable(false);
+
+        cb_cientificos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cb_cientificosMouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Científicos");
 
@@ -230,6 +233,14 @@ String selectedPlaneta="";
         popupMenu.setVisible(false);
     }//GEN-LAST:event_Planeta2ActionPerformed
 
+    private void cb_cientificosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_cientificosMouseClicked
+       if(cb_cientificos.getSelectedItem()!=null){
+        Cientifico cientificoSeleccionado = buscarCientifico(String.valueOf(cb_cientificos.getSelectedItem()));
+       llenarJTreeCient(cientificoSeleccionado);
+        }
+
+    }//GEN-LAST:event_cb_cientificosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -280,12 +291,12 @@ String selectedPlaneta="";
             ObjectInputStream os = new ObjectInputStream(new FileInputStream("./cientificos.dr"));
             Cientifico cientifico;
              while((cientifico = (Cientifico)os.readObject())!= null ){
-                 System.out.println(cientifico.nombreCientifico);
                  cientificos.add(cientifico);
              }
              
                 
         }catch(Exception ex){
+
             System.out.println(ex);
         }
     }
@@ -301,6 +312,14 @@ String selectedPlaneta="";
         model.setRoot(raiz);
         }
     
+    public void llenarJTreeCient(Cientifico cient){
+        for(Planeta p: cient.listaPlanetas){
+            DefaultMutableTreeNode hijo = new DefaultMutableTreeNode(p.nombre);
+            raiz.add(hijo);
+        }
+        model.setRoot(raiz);
+    }
+    
     public void clearTree(){
         raiz.removeAllChildren();
         model.reload();
@@ -313,6 +332,14 @@ String selectedPlaneta="";
         }
     }
 
+    public Cientifico buscarCientifico(String nombre){
+        for(Cientifico c: cientificos){
+            if(c.nombreCientifico.equals(nombre)){
+                return c;
+            }
+        }
+        return null;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Planeta1;
     private javax.swing.JMenuItem Planeta2;
