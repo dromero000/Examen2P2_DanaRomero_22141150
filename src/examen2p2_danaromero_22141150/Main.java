@@ -241,10 +241,10 @@ String selectedPlaneta="";
         tf_planeta2.setText(selectedPlaneta);
         popupMenu.setVisible(false);
     }//GEN-LAST:event_Planeta2ActionPerformed
-
+Cientifico cientificoSeleccionado;
     private void cb_cientificosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_cientificosMouseClicked
        if(cb_cientificos.getSelectedItem()!=null){
-        Cientifico cientificoSeleccionado = buscarCientifico(String.valueOf(cb_cientificos.getSelectedItem()));
+        cientificoSeleccionado = buscarCientifico(String.valueOf(cb_cientificos.getSelectedItem()));
        llenarJTreeCient(cientificoSeleccionado);
         }
 
@@ -421,9 +421,12 @@ Planeta planeta2;
                         pb_colision.setValue(i);
                         Thread.sleep(5);
                         }
-                        
-                        
-                        Planeta planetaNuevo = planeta1.colision(JOptionPane.showInputDialog(null, "Ingrese nombre del planeta"), planeta2);
+
+                        Planeta planetaNuevo = planeta1.colision(planeta2);
+                        if ( planetaNuevo!=null ){
+                            listaPlanetas.add(planetaNuevo);
+                            cientificoSeleccionado.listaPlanetas.add(planetaNuevo);
+                        }
                         
                     }catch(InterruptedException e){
                         e.printStackTrace();

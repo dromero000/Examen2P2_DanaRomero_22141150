@@ -5,6 +5,8 @@
  */
 package examen2p2_danaromero_22141150;
 
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -22,13 +24,14 @@ public class Terrestre extends Planeta{
     }
 
     @Override
-    public Planeta colision(String nombre, Planeta planeta2) {
+    public Planeta colision(Planeta planeta2) {
         if(probabilidad(25)){
+            String nombreNuevo = JOptionPane.showInputDialog(null, "Ingrese nombre del planeta");
             double pesoNuevo = (this.peso + planeta2.peso) /2;
             double tamanoNuevo = (this.tamano + planeta2.tamano) /2;
             double cXNuevo = (this.cX + planeta2.cX) /2;
             double cYNuevo = (this.cY + planeta2.cY) /2;
-            return new Terrestre(tamanoNuevo,pesoNuevo,nombre,cXNuevo,cYNuevo);
+            return new Terrestre(tamanoNuevo,pesoNuevo,nombreNuevo,cXNuevo,cYNuevo);
         }else{
             return null;
         }

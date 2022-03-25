@@ -5,6 +5,8 @@
  */
 package examen2p2_danaromero_22141150;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dana Romero
@@ -19,8 +21,9 @@ public class Gaseoso extends Planeta{
         super(tamano,peso,nombre,cX,cY);
     }
     @Override
-    public Planeta colision(String nombre, Planeta planeta2) {
-        if(probabilidad(25)){
+    public Planeta colision(Planeta planeta2) {
+        if(probabilidad(20)){
+            String nombreNuevo = JOptionPane.showInputDialog(null, "Ingrese nombre del planeta");
             double pesoNuevo = (this.peso + planeta2.peso) /2;
             double tamanoNuevo = (this.tamano + planeta2.tamano) /2;
             double cXNuevo = (this.cX + planeta2.cX) /2;

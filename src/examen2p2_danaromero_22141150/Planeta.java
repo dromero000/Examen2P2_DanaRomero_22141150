@@ -39,7 +39,7 @@ public abstract class Planeta {
         return num<=porcentaje;
     }
     
-    public abstract Planeta colision (String nombre, Planeta planeta2 );
+    public abstract Planeta colision (Planeta planeta2 );
 
     public String getNombre() {
         return nombre;
