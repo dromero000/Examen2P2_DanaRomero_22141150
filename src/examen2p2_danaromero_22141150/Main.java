@@ -48,6 +48,7 @@ public class Main extends javax.swing.JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         planetasDefault();
+        
         cargarCientificos();
         llenarComboBox();
         model = (DefaultTreeModel)tree_planetas.getModel();
@@ -209,6 +210,7 @@ public class Main extends javax.swing.JFrame {
             llenarJTreeDefault();
         }else{
             clearTree();
+            llenarJTreeCient(cientificoSeleccionado);
         }
     }//GEN-LAST:event_cb_publicosItemStateChanged
 
@@ -245,7 +247,8 @@ Cientifico cientificoSeleccionado;
     private void cb_cientificosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_cientificosMouseClicked
        if(cb_cientificos.getSelectedItem()!=null){
         cientificoSeleccionado = buscarCientifico(String.valueOf(cb_cientificos.getSelectedItem()));
-       llenarJTreeCient(cientificoSeleccionado);
+        clearTree();
+        llenarJTreeCient(cientificoSeleccionado);
         }
 
     }//GEN-LAST:event_cb_cientificosMouseClicked
@@ -426,6 +429,7 @@ Planeta planeta2;
                         if ( planetaNuevo!=null ){
                             listaPlanetas.add(planetaNuevo);
                             cientificoSeleccionado.listaPlanetas.add(planetaNuevo);
+                            cargarCientificos();
                         }
                         
                     }catch(InterruptedException e){
