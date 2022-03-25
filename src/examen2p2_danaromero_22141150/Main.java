@@ -5,14 +5,17 @@
  */
 package examen2p2_danaromero_22141150;
 
+import java.awt.Color;
 import static java.awt.MouseInfo.getPointerInfo;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -60,7 +63,7 @@ public class Main extends javax.swing.JFrame {
         popupMenu = new javax.swing.JPopupMenu();
         Planeta1 = new javax.swing.JMenuItem();
         Planeta2 = new javax.swing.JMenuItem();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        pb_colision = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         tree_planetas = new javax.swing.JTree();
         tf_planeta1 = new javax.swing.JTextField();
@@ -144,7 +147,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pb_colision, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
@@ -167,7 +170,7 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pb_colision, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -246,12 +249,16 @@ String selectedPlaneta="";
         }
 
     }//GEN-LAST:event_cb_cientificosMouseClicked
-
+int distancia =0;
+Planeta planeta1;
+Planeta planeta2;
     private void btn_colisionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_colisionarActionPerformed
-       Planeta planeta1 =  buscarPlaneta(tf_planeta1.getText());
-       Planeta planeta2 =  buscarPlaneta(tf_planeta2.getText());
+       planeta1 =  buscarPlaneta(tf_planeta1.getText());
+       planeta2 =  buscarPlaneta(tf_planeta2.getText());
        double distanciaD = Math.sqrt(Math.pow((planeta1.cX-planeta2.cX),2)+Math.pow((planeta1.cY-planeta2.cY),2));
-       int distancia = (int) distanciaD;
+        distancia = (int) distanciaD;
+        hilo hilo = new hilo();
+            hilo.start();
     }//GEN-LAST:event_btn_colisionarActionPerformed
 
     /**
@@ -372,8 +379,8 @@ String selectedPlaneta="";
     private javax.swing.JCheckBox cb_publicos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JProgressBar pb_colision;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JTextField tf_nombreCientifico;
     private javax.swing.JTextField tf_planeta1;
@@ -390,6 +397,7 @@ String selectedPlaneta="";
          planetasDefault.add( new Gaseoso(300000,30000,"Saturno",560,450) );
          planetasDefault.add( new Gaseoso(200000,20000,"Urano",670,690) );
          planetasDefault.add( new Gaseoso(200000,20000,"Neptuno",840,900) );
+         planetasDefault.add ( new Gaseoso(100000,150000, "Planeta Vegetta",900,850));
          listaPlanetas.add( new Terrestre(5000,13000,"Mercurio",400,300) );
          listaPlanetas.add( new Terrestre(100000,15000,"Venus",640,260) );
          listaPlanetas.add( new Terrestre(140000,17000,"Tierra",760,570) );
@@ -398,7 +406,38 @@ String selectedPlaneta="";
          listaPlanetas.add( new Gaseoso(300000,30000,"Saturno",560,450) );
          listaPlanetas.add( new Gaseoso(200000,20000,"Urano",670,690) );
          listaPlanetas.add( new Gaseoso(200000,20000,"Neptuno",840,900) );
-         
+         listaPlanetas.add ( new Gaseoso(100000,150000, "Planeta Vegetta",900,850));
      }
+         
+         class hilo extends Thread{
+        
+        public void run(){
+            
+            pb_colision.setVisible(true);
+            pb_colision.setMaximum(distancia);
+           // while(true){
+                    try{
+                        for(int i=0; i<=distancia;i++){
+                        pb_colision.setValue(i);
+                        Thread.sleep(5);
+                        }
+                        
+                        
+                        Planeta planetaNuevo = planeta1.colision(JOptionPane.showInputDialog(null, "Ingrese nombre del planeta"), planeta2);
+                        
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
 
+                    }
+            
+            
+
+                            
+
+              
+            
+            
+        }
+     
+         }
 }

@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author Dana Romero
  */
-public class Planeta {
+public abstract class Planeta {
     
     static Random r = new Random();
     //Atributos
@@ -38,6 +38,8 @@ public class Planeta {
         int num = r.nextInt(100);
         return num<=porcentaje;
     }
+    
+    public abstract Planeta colision (String nombre, Planeta planeta2 );
 
     public String getNombre() {
         return nombre;
