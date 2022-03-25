@@ -36,6 +36,7 @@ public class Main extends javax.swing.JFrame {
     //private static final long serialVersionUID = 1L;
     
     public Main() {
+        
         listaPlanetas = new ArrayList <>();
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
@@ -53,6 +54,9 @@ public class Main extends javax.swing.JFrame {
         llenarComboBox();
         model = (DefaultTreeModel)tree_planetas.getModel();
         raiz = new DefaultMutableTreeNode("Planetas"); 
+        if(cb_cientificos.getSelectedItem()!=null){
+        cientificoSeleccionado = buscarCientifico(String.valueOf(cb_cientificos.getSelectedItem()));
+        }
         
     }
 
@@ -243,7 +247,7 @@ String selectedPlaneta="";
         tf_planeta2.setText(selectedPlaneta);
         popupMenu.setVisible(false);
     }//GEN-LAST:event_Planeta2ActionPerformed
-Cientifico cientificoSeleccionado;
+Cientifico cientificoSeleccionado;;
     private void cb_cientificosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_cientificosMouseClicked
        if(cb_cientificos.getSelectedItem()!=null){
         cientificoSeleccionado = buscarCientifico(String.valueOf(cb_cientificos.getSelectedItem()));
@@ -395,7 +399,7 @@ Planeta planeta2;
          planetasDefault.add( new Terrestre(5000,13000,"Mercurio",400,300) );
          planetasDefault.add( new Terrestre(100000,15000,"Venus",640,260) );
          planetasDefault.add( new Terrestre(140000,17000,"Tierra",760,570) );
-         planetasDefault.add( new Terrestre(140000,17000,"Tierra",760,570) );
+         planetasDefault.add( new Terrestre(90000,12000,"Marte",360,360) );
          planetasDefault.add( new Gaseoso(400000,40000,"Jupiter",340,310) );
          planetasDefault.add( new Gaseoso(300000,30000,"Saturno",560,450) );
          planetasDefault.add( new Gaseoso(200000,20000,"Urano",670,690) );
@@ -404,7 +408,7 @@ Planeta planeta2;
          listaPlanetas.add( new Terrestre(5000,13000,"Mercurio",400,300) );
          listaPlanetas.add( new Terrestre(100000,15000,"Venus",640,260) );
          listaPlanetas.add( new Terrestre(140000,17000,"Tierra",760,570) );
-         listaPlanetas.add( new Terrestre(140000,17000,"Tierra",760,570) );
+         listaPlanetas.add( new Terrestre(90000,12000,"Marte",360,360) );
          listaPlanetas.add( new Gaseoso(400000,40000,"Jupiter",340,310) );
          listaPlanetas.add( new Gaseoso(300000,30000,"Saturno",560,450) );
          listaPlanetas.add( new Gaseoso(200000,20000,"Urano",670,690) );
@@ -429,7 +433,7 @@ Planeta planeta2;
                         if ( planetaNuevo!=null ){
                             listaPlanetas.add(planetaNuevo);
                             cientificoSeleccionado.listaPlanetas.add(planetaNuevo);
-                            cargarCientificos();
+                            guardarCientifico();
                         }
                         
                     }catch(InterruptedException e){
