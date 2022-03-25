@@ -5,22 +5,24 @@
  */
 package examen2p2_danaromero_22141150;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Dana Romero
  */
-public class Cientifico {
+public class Cientifico implements Serializable{
     
     //Atributos
     protected String nombreCientifico;
-    static ArrayList <Planeta> listaPlanetas = new ArrayList<>();
+    static ArrayList <Planeta> listaPlanetas;
 
     //Constructor
 
     public Cientifico(String nombreCientifico) {
         this.nombreCientifico = nombreCientifico;
+        listaPlanetas = new ArrayList<>();
     }
     
     
