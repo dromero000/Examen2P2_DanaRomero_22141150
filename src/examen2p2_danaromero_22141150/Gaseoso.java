@@ -15,7 +15,9 @@ public class Gaseoso extends Planeta{
         super(nombre);
     }
     
-    
+    public Gaseoso (double tamano,double peso, String nombre, double cX, double cY){
+        super(tamano,peso,nombre,cX,cY);
+    }
     
     
 }

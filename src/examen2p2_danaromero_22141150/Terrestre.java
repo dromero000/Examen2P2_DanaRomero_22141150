@@ -17,6 +17,10 @@ public class Terrestre extends Planeta{
         super(nombre);
     }
     
+    public Terrestre (double tamano,double peso, String nombre, double cX, double cY){
+        super(tamano,peso,nombre,cX,cY);
+    }
+    
 
     
     

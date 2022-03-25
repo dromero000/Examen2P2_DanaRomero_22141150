@@ -24,6 +24,14 @@ public class Planeta {
         this.nombre = nombre;
     }
     
+    public Planeta (double tamano,double peso, String nombre, double cX, double cY){
+        this.tamano = tamano;
+        this.peso=peso;
+        this.nombre = nombre;
+        this.cX = cX;
+        this.cY=cY;
+    }
+    
 
     
     public boolean probabilidad(int porcentaje){
