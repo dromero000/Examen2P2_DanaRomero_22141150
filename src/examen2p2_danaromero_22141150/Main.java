@@ -28,11 +28,12 @@ public class Main extends javax.swing.JFrame {
     DefaultMutableTreeNode raiz;
     DefaultTreeModel model;
     ArrayList <Planeta> planetasDefault;
+    ArrayList <Planeta> listaPlanetas;
     ArrayList <Cientifico> cientificos;
     //private static final long serialVersionUID = 1L;
     
     public Main() {
-
+        listaPlanetas = new ArrayList <>();
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
@@ -130,6 +131,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         btn_colisionar.setText("Colisionar");
+        btn_colisionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_colisionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,6 +247,13 @@ String selectedPlaneta="";
 
     }//GEN-LAST:event_cb_cientificosMouseClicked
 
+    private void btn_colisionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_colisionarActionPerformed
+       Planeta planeta1 =  buscarPlaneta(tf_planeta1.getText());
+       Planeta planeta2 =  buscarPlaneta(tf_planeta2.getText());
+       double distanciaD = Math.sqrt(Math.pow((planeta1.cX-planeta2.cX),2)+Math.pow((planeta1.cY-planeta2.cY),2));
+       int distancia = (int) distanciaD;
+    }//GEN-LAST:event_btn_colisionarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -340,6 +353,16 @@ String selectedPlaneta="";
         }
         return null;
     }
+    
+    //Buscar Planeta
+    public Planeta buscarPlaneta(String nombre){
+        for(Planeta p: listaPlanetas){
+            if(p.nombre.equals(nombre)){
+                return p;
+            }
+        }
+        return null;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Planeta1;
     private javax.swing.JMenuItem Planeta2;
@@ -367,6 +390,15 @@ String selectedPlaneta="";
          planetasDefault.add( new Gaseoso(300000,30000,"Saturno",560,450) );
          planetasDefault.add( new Gaseoso(200000,20000,"Urano",670,690) );
          planetasDefault.add( new Gaseoso(200000,20000,"Neptuno",840,900) );
+         listaPlanetas.add( new Terrestre(5000,13000,"Mercurio",400,300) );
+         listaPlanetas.add( new Terrestre(100000,15000,"Venus",640,260) );
+         listaPlanetas.add( new Terrestre(140000,17000,"Tierra",760,570) );
+         listaPlanetas.add( new Terrestre(140000,17000,"Tierra",760,570) );
+         listaPlanetas.add( new Gaseoso(400000,40000,"Jupiter",340,310) );
+         listaPlanetas.add( new Gaseoso(300000,30000,"Saturno",560,450) );
+         listaPlanetas.add( new Gaseoso(200000,20000,"Urano",670,690) );
+         listaPlanetas.add( new Gaseoso(200000,20000,"Neptuno",840,900) );
+         
      }
 
 }

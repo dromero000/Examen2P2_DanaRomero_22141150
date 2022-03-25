@@ -201,6 +201,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Colisionar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_colisionarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
