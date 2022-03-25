@@ -54,9 +54,11 @@ public class Main extends javax.swing.JFrame {
         llenarComboBox();
         model = (DefaultTreeModel)tree_planetas.getModel();
         raiz = new DefaultMutableTreeNode("Planetas"); 
+        
         if(cb_cientificos.getSelectedItem()!=null){
         cientificoSeleccionado = buscarCientifico(String.valueOf(cb_cientificos.getSelectedItem()));
         }
+        
         
     }
 
@@ -103,6 +105,11 @@ public class Main extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree_planetas.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree_planetas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tree_planetasMouseClicked(evt);
+            }
+        });
         tree_planetas.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
                 tree_planetasValueChanged(evt);
@@ -229,11 +236,18 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addCientificoActionPerformed
 String selectedPlaneta="";
     private void tree_planetasValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_tree_planetasValueChanged
+        String planeta="";
+        try{
+        if((planeta = tree_planetas.getSelectionPath().toString())!=null){
+            popupMenu.setVisible(true);
+            popupMenu.setLocation(getPointerInfo().getLocation());
+            selectedPlaneta=planeta.replace("[Planetas, ", "").replace("]","");
+        }
+        }catch(Exception ex){
+            
+        }
+
         
-        popupMenu.setVisible(true);
-        popupMenu.setLocation(getPointerInfo().getLocation());
-        String planeta = tree_planetas.getSelectionPath().toString();
-        selectedPlaneta=planeta.replace("[Planetas, ", "").replace("]","");
         
     }//GEN-LAST:event_tree_planetasValueChanged
 
@@ -262,11 +276,16 @@ Planeta planeta2;
     private void btn_colisionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_colisionarActionPerformed
        planeta1 =  buscarPlaneta(tf_planeta1.getText());
        planeta2 =  buscarPlaneta(tf_planeta2.getText());
+        System.out.println(planeta1);
        double distanciaD = Math.sqrt(Math.pow((planeta1.cX-planeta2.cX),2)+Math.pow((planeta1.cY-planeta2.cY),2));
         distancia = (int) distanciaD;
         hilo hilo = new hilo();
-            hilo.start();
+        hilo.start();
     }//GEN-LAST:event_btn_colisionarActionPerformed
+
+    private void tree_planetasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tree_planetasMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tree_planetasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -309,7 +328,7 @@ Planeta planeta2;
             for (Cientifico c : cientificos)
                 os.writeObject(c);
         }catch(Exception ex){
-            System.out.println(ex);
+
         }
     }
      
@@ -319,12 +338,14 @@ Planeta planeta2;
             Cientifico cientifico;
              while((cientifico = (Cientifico)os.readObject())!= null ){
                  cientificos.add(cientifico);
+                 for(Planeta p: cientifico.listaPlanetas){
+                     listaPlanetas.add(p);
+                 }
              }
              
                 
         }catch(Exception ex){
 
-            System.out.println(ex);
         }
     }
     
@@ -430,9 +451,10 @@ Planeta planeta2;
                         }
 
                         Planeta planetaNuevo = planeta1.colision(planeta2);
+                        
                         if ( planetaNuevo!=null ){
                             listaPlanetas.add(planetaNuevo);
-                            cientificoSeleccionado.listaPlanetas.add(planetaNuevo);
+                            buscarCientifico(String.valueOf(cb_cientificos.getSelectedItem())).listaPlanetas.add(planetaNuevo);
                             guardarCientifico();
                         }
                         
@@ -440,12 +462,6 @@ Planeta planeta2;
                         e.printStackTrace();
 
                     }
-            
-            
-
-                            
-
-              
             
             
         }

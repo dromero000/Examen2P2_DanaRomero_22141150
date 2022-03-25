@@ -5,6 +5,7 @@
  */
 package examen2p2_danaromero_22141150;
 
+import java.io.Serializable;
 import javax.swing.JOptionPane;
 
 
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Dana Romero
  */
-public class Terrestre extends Planeta{
+public class Terrestre extends Planeta implements Serializable{
     
     
     public Terrestre(String nombre) {
@@ -28,6 +29,7 @@ public class Terrestre extends Planeta{
         if(probabilidad(25)){
             String nombreNuevo = JOptionPane.showInputDialog(null, "Ingrese nombre del planeta");
             double pesoNuevo = (this.peso + planeta2.peso) /2;
+            System.out.println(pesoNuevo);
             double tamanoNuevo = (this.tamano + planeta2.tamano) /2;
             double cXNuevo = (this.cX + planeta2.cX) /2;
             double cYNuevo = (this.cY + planeta2.cY) /2;

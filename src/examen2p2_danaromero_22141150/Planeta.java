@@ -5,13 +5,14 @@
  */
 package examen2p2_danaromero_22141150;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  *
  * @author Dana Romero
  */
-public abstract class Planeta {
+public abstract class Planeta implements Serializable {
     
     static Random r = new Random();
     //Atributos

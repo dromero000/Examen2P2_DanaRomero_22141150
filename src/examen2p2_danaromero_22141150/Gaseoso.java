@@ -5,13 +5,14 @@
  */
 package examen2p2_danaromero_22141150;
 
+import java.io.Serializable;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Dana Romero
  */
-public class Gaseoso extends Planeta{
+public class Gaseoso extends Planeta implements Serializable{
     
     public Gaseoso(String nombre) {
         super(nombre);
