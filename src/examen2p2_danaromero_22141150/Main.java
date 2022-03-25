@@ -5,10 +5,13 @@
  */
 package examen2p2_danaromero_22141150;
 
+import static java.awt.MouseInfo.getPointerInfo;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -45,6 +48,8 @@ public class Main extends javax.swing.JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         planetasDefault();
+        cargarCientificos();
+        llenarComboBox();
         model = (DefaultTreeModel)tree_planetas.getModel();
         raiz = new DefaultMutableTreeNode("Planetas"); 
     }
@@ -54,6 +59,9 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu = new javax.swing.JPopupMenu();
+        Planeta1 = new javax.swing.JMenuItem();
+        Planeta2 = new javax.swing.JMenuItem();
         jProgressBar1 = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         tree_planetas = new javax.swing.JTree();
@@ -67,10 +75,33 @@ public class Main extends javax.swing.JFrame {
         btn_addCientifico = new javax.swing.JButton();
         btn_colisionar = new javax.swing.JButton();
 
+        popupMenu.setMinimumSize(new java.awt.Dimension(80, 50));
+
+        Planeta1.setText("Paneta 1");
+        Planeta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Planeta1ActionPerformed(evt);
+            }
+        });
+        popupMenu.add(Planeta1);
+
+        Planeta2.setText("Planeta 2");
+        Planeta2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Planeta2ActionPerformed(evt);
+            }
+        });
+        popupMenu.add(Planeta2);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree_planetas.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree_planetas.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                tree_planetasValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(tree_planetas);
 
         tf_planeta1.setEditable(false);
@@ -178,6 +209,26 @@ public class Main extends javax.swing.JFrame {
             guardarCientifico();
         }
     }//GEN-LAST:event_btn_addCientificoActionPerformed
+String selectedPlaneta="";
+    private void tree_planetasValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_tree_planetasValueChanged
+        
+        popupMenu.setVisible(true);
+        popupMenu.setLocation(getPointerInfo().getLocation());
+        String planeta = tree_planetas.getSelectionPath().toString();
+        selectedPlaneta=planeta.replace("[Planetas, ", "").replace("]","");
+        
+    }//GEN-LAST:event_tree_planetasValueChanged
+
+    private void Planeta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Planeta1ActionPerformed
+       tf_planeta1.setText(selectedPlaneta);
+       popupMenu.setVisible(false);
+        
+    }//GEN-LAST:event_Planeta1ActionPerformed
+
+    private void Planeta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Planeta2ActionPerformed
+        tf_planeta2.setText(selectedPlaneta);
+        popupMenu.setVisible(false);
+    }//GEN-LAST:event_Planeta2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,6 +274,21 @@ public class Main extends javax.swing.JFrame {
             System.out.println(ex);
         }
     }
+     
+     private void cargarCientificos(){
+        try{
+            ObjectInputStream os = new ObjectInputStream(new FileInputStream("./cientificos.dr"));
+            Cientifico cientifico;
+             while((cientifico = (Cientifico)os.readObject())!= null ){
+                 System.out.println(cientifico.nombreCientifico);
+                 cientificos.add(cientifico);
+             }
+             
+                
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
     
     public void llenarJTreeDefault(){
 
@@ -248,6 +314,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Planeta1;
+    private javax.swing.JMenuItem Planeta2;
     private javax.swing.JButton btn_addCientifico;
     private javax.swing.JButton btn_colisionar;
     private javax.swing.JComboBox<String> cb_cientificos;
@@ -256,6 +324,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JTextField tf_nombreCientifico;
     private javax.swing.JTextField tf_planeta1;
     private javax.swing.JTextField tf_planeta2;
