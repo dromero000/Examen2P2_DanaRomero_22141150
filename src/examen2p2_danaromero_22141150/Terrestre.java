@@ -29,7 +29,6 @@ public class Terrestre extends Planeta implements Serializable{
         if(probabilidad(25)){
             String nombreNuevo = JOptionPane.showInputDialog(null, "Ingrese nombre del planeta");
             double pesoNuevo = (this.peso + planeta2.peso) /2;
-            System.out.println(pesoNuevo);
             double tamanoNuevo = (this.tamano + planeta2.tamano) /2;
             double cXNuevo = (this.cX + planeta2.cX) /2;
             double cYNuevo = (this.cY + planeta2.cY) /2;
